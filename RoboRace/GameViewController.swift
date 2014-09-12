@@ -9,60 +9,156 @@
 import UIKit
 import SpriteKit
 
-extension SKNode {
-    class func unarchiveFromFile(file : NSString) -> SKNode? {
-        
-        let path = NSBundle.mainBundle().pathForResource(file, ofType: "sks")
-        
-        var sceneData = NSData.dataWithContentsOfFile(path, options: .DataReadingMappedIfSafe, error: nil)
-        var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
-        
-        archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
-        let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as GameScene
-        archiver.finishDecoding()
-        return scene
-    }
-}
-
 class GameViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
-            // Configure the view.
-            let skView = self.view as SKView
-            skView.showsFPS = true
-            skView.showsNodeCount = true
-            
-            /* Sprite Kit applies additional optimizations to improve rendering performance */
-            skView.ignoresSiblingOrder = true
-            
-            /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .AspectFill
-            
-            skView.presentScene(scene)
-        }
-    }
-
-    override func shouldAutorotate() -> Bool {
-        return true
-    }
-
-    override func supportedInterfaceOrientations() -> Int {
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-            return Int(UIInterfaceOrientationMask.AllButUpsideDown.toRaw())
-        } else {
-            return Int(UIInterfaceOrientationMask.All.toRaw())
-        }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
-    }
-
+    var scene: GameScene!
+    var board: Board!
+    
+    @IBOutlet var phaseNum: UILabel!
+    @IBOutlet var dealButton: UIButton!
+    @IBOutlet var damageCount: UILabel!
+    
+    
+    //var tapGestureRecognizer: UITapGestureRecognizer!
+    
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
+    
+    override func shouldAutorotate() -> Bool {
+        return true
+    }
+    
+    override func supportedInterfaceOrientations() -> Int {
+        return Int(UIInterfaceOrientationMask.AllButUpsideDown.toRaw())
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Configure the view.
+        let skView = view as SKView
+        skView.multipleTouchEnabled = false
+        
+        // Create and configure the scene.
+        scene = GameScene(size: skView.bounds.size)
+        scene.scaleMode = .AspectFill
+        
+        board = Board(filename: "Board_0")
+        scene.board = board
+        scene.addTiles()
+        scene.addDisplay()
+        
+        board.startPoint = (6,0)
+        
+
+        
+        // Present the scene.
+        skView.presentScene(scene)
+        
+        
+        // Load and start background music.
+        //let url = NSBundle.mainBundle().URLForResource("Mining by Moonlight", withExtension: "mp3")
+        //backgroundMusic = AVAudioPlayer(contentsOfURL: url, error: nil)
+        //backgroundMusic.numberOfLoops = -1
+        //backgroundMusic.play()
+        
+        //Start the game by adding sprites
+        beginGame()
+    }
+    
+    @IBAction func dealButtonPressed(AnyObject) {
+        dealCards()
+    }
+    
+    @IBAction func beginButtonPressed(AnyObject) {
+        var isFull = true
+        for card in board.player.program {
+            isFull = isFull && card
+        }
+        if isFull {
+            executeTurn(0)
+        }
+    }
+
+    
+    func findRobot(toFind: RobotName) -> Robot? {
+        for bot in board.robots {
+            if bot.robotName == toFind {return bot}
+        }
+        return nil
+    }
+    
+    func beginGame() {
+        
+        //Select player robot
+        board.player = Robot(name: "Ball Bot", bot: .BallBot)
+            
+            
+        board.robots.addElement(board.player)
+        
+        
+        
+        scene.addBots()
+    }
+    
+    let prog = [Card(cardType: .Move1, priority: 0),Card(cardType:.Move2, priority: 0),Card(cardType: .TurnLeft, priority: 0),
+                                Card(cardType: .BackUp, priority: 0),Card(cardType: .UTurn, priority: 0)]
+    
+    func updatePhaseDisplay(phase: Int) {
+        phaseNum.text = "PHASE \(phase + 1)"
+    }
+    
+    func updateDamageDisplay(damage: Int) {
+        damageCount.text = "DAMAGE: \(damage)"
+    }
+    
+    func dealCards() {
+        dealButton.hidden = true
+        for bot in board.robots {
+            var hand = [Card]()
+            for i in 0..<9 {
+                hand.append(board.deck.draw()!)
+            }
+            hand.sort() {
+                c1, c2 in c1.priority < c2.priority
+            }
+            bot.hand = hand
+        }
+        scene.displayHand()
+    }
+    
+    func boardElements(part: Int, completion: ()->()) {
+        if part == 5 {completion()}
+        
+        board.boardElements(part)
+        scene.animateBotMoves() {
+            self.boardElements(part + 1, completion)
+        }
+    }
+    
+    func executeTurn(phase: Int) {
+        if phase == 5 {return}
+        
+        updatePhaseDisplay(phase)
+        board.executePhase(phase)
+        scene.animateBotMoves() {
+            self.scene.animateBotCarnage()
+            self.boardElements(0) {
+                self.board.resolveLaserFire()
+                self.updateDamageDisplay(self.board.player.damage)
+                for bot in self.board.robots {
+                    if (bot.state == RobotState.PitDeath || bot.state == RobotState.Destroyed) && bot.lives == 0 {
+                        self.board.robots.removeElement(bot)
+                    }
+                }
+                self.executeTurn(phase + 1)
+            }
+        }
+        
+        
+    
+
+    }
+    
+
 }

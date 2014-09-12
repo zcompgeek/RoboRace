@@ -7,13 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B02186D419A2554B000BC8B3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0DB7C67198A86EC0036DC58 /* Images.xcassets */; };
+		B02186DC19A27CE7000BC8B3 /* death.wav in Resources */ = {isa = PBXBuildFile; fileRef = B02186DA19A279B0000BC8B3 /* death.wav */; };
+		B03925FA199D40B600561E51 /* laser.wav in Resources */ = {isa = PBXBuildFile; fileRef = B03925F9199D40B600561E51 /* laser.wav */; };
+		B067D936198ABF210009D2A5 /* Array2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067D935198ABF210009D2A5 /* Array2D.swift */; };
+		B067D938198ABF280009D2A5 /* Set.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067D937198ABF280009D2A5 /* Set.swift */; };
+		B067D93A198ABF370009D2A5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067D939198ABF370009D2A5 /* Extensions.swift */; };
+		B067D93C198ABFFC0009D2A5 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067D93B198ABFFB0009D2A5 /* Board.swift */; };
+		B067D93E198AC02F0009D2A5 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067D93D198AC02F0009D2A5 /* Tile.swift */; };
+		B08CF076198B229800A1B719 /* Board_0.json in Resources */ = {isa = PBXBuildFile; fileRef = B08CF075198B229800A1B719 /* Board_0.json */; };
+		B08CF078198BE79700A1B719 /* Robot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08CF077198BE79700A1B719 /* Robot.swift */; };
+		B08CF07A198BE85000A1B719 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08CF079198BE85000A1B719 /* Card.swift */; };
+		B08CF07C198BED4800A1B719 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08CF07B198BED4800A1B719 /* Deck.swift */; };
+		B08CF07E198BEE0100A1B719 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08CF07D198BEE0100A1B719 /* Queue.swift */; };
+		B08CF080198BF1BB00A1B719 /* Rules.txt in Resources */ = {isa = PBXBuildFile; fileRef = B08CF07F198BF1BB00A1B719 /* Rules.txt */; };
+		B08CF082198C1E8300A1B719 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08CF081198C1E8300A1B719 /* Direction.swift */; };
 		B0DB7C5D198A86EC0036DC58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DB7C5C198A86EC0036DC58 /* AppDelegate.swift */; };
-		B0DB7C5F198A86EC0036DC58 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B0DB7C5E198A86EC0036DC58 /* GameScene.sks */; };
 		B0DB7C61198A86EC0036DC58 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DB7C60198A86EC0036DC58 /* GameScene.swift */; };
 		B0DB7C63198A86EC0036DC58 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DB7C62198A86EC0036DC58 /* GameViewController.swift */; };
-		B0DB7C66198A86EC0036DC58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0DB7C64198A86EC0036DC58 /* Main.storyboard */; };
-		B0DB7C68198A86EC0036DC58 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0DB7C67198A86EC0036DC58 /* Images.xcassets */; };
 		B0DB7C74198A86ED0036DC58 /* RoboRaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DB7C73198A86ED0036DC58 /* RoboRaceTests.swift */; };
+		B0DF7A7319A4E96400200FB7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0DF7A7219A4E96400200FB7 /* Main.storyboard */; };
+		B0FF387D198FF444003F48C1 /* ChopShop.json in Resources */ = {isa = PBXBuildFile; fileRef = B0FF387C198FF444003F48C1 /* ChopShop.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,17 +41,31 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B02186DA19A279B0000BC8B3 /* death.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = death.wav; sourceTree = "<group>"; };
+		B03925F9199D40B600561E51 /* laser.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = laser.wav; sourceTree = "<group>"; };
+		B067D935198ABF210009D2A5 /* Array2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array2D.swift; sourceTree = "<group>"; };
+		B067D937198ABF280009D2A5 /* Set.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Set.swift; sourceTree = "<group>"; };
+		B067D939198ABF370009D2A5 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		B067D93B198ABFFB0009D2A5 /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		B067D93D198AC02F0009D2A5 /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
+		B08CF075198B229800A1B719 /* Board_0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Board_0.json; sourceTree = "<group>"; };
+		B08CF077198BE79700A1B719 /* Robot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Robot.swift; sourceTree = "<group>"; };
+		B08CF079198BE85000A1B719 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		B08CF07B198BED4800A1B719 /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
+		B08CF07D198BEE0100A1B719 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		B08CF07F198BF1BB00A1B719 /* Rules.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Rules.txt; sourceTree = "<group>"; };
+		B08CF081198C1E8300A1B719 /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		B0DB7C57198A86EC0036DC58 /* RoboRace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RoboRace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0DB7C5B198A86EC0036DC58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0DB7C5C198A86EC0036DC58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B0DB7C5E198A86EC0036DC58 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		B0DB7C60198A86EC0036DC58 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		B0DB7C62198A86EC0036DC58 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		B0DB7C65198A86EC0036DC58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B0DB7C67198A86EC0036DC58 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B0DB7C6D198A86ED0036DC58 /* RoboRaceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoboRaceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0DB7C72198A86ED0036DC58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0DB7C73198A86ED0036DC58 /* RoboRaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoboRaceTests.swift; sourceTree = "<group>"; };
+		B0DF7A7219A4E96400200FB7 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		B0FF387C198FF444003F48C1 /* ChopShop.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ChopShop.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +86,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B03925F8199D409F00561E51 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				B02186DA19A279B0000BC8B3 /* death.wav */,
+				B03925F9199D40B600561E51 /* laser.wav */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
+		B067D93F198AC3490009D2A5 /* Boards */ = {
+			isa = PBXGroup;
+			children = (
+				B08CF075198B229800A1B719 /* Board_0.json */,
+				B0FF387C198FF444003F48C1 /* ChopShop.json */,
+			);
+			name = Boards;
+			sourceTree = "<group>";
+		};
 		B0DB7C4E198A86EC0036DC58 = {
 			isa = PBXGroup;
 			children = (
@@ -79,12 +125,24 @@
 		B0DB7C59198A86EC0036DC58 /* RoboRace */ = {
 			isa = PBXGroup;
 			children = (
-				B0DB7C5C198A86EC0036DC58 /* AppDelegate.swift */,
-				B0DB7C5E198A86EC0036DC58 /* GameScene.sks */,
 				B0DB7C60198A86EC0036DC58 /* GameScene.swift */,
+				B08CF07B198BED4800A1B719 /* Deck.swift */,
+				B067D93B198ABFFB0009D2A5 /* Board.swift */,
 				B0DB7C62198A86EC0036DC58 /* GameViewController.swift */,
-				B0DB7C64198A86EC0036DC58 /* Main.storyboard */,
+				B067D93D198AC02F0009D2A5 /* Tile.swift */,
+				B08CF077198BE79700A1B719 /* Robot.swift */,
+				B08CF081198C1E8300A1B719 /* Direction.swift */,
+				B08CF079198BE85000A1B719 /* Card.swift */,
+				B067D939198ABF370009D2A5 /* Extensions.swift */,
+				B067D935198ABF210009D2A5 /* Array2D.swift */,
+				B067D937198ABF280009D2A5 /* Set.swift */,
+				B08CF07D198BEE0100A1B719 /* Queue.swift */,
+				B08CF07F198BF1BB00A1B719 /* Rules.txt */,
+				B0DF7A7219A4E96400200FB7 /* Main.storyboard */,
+				B0DB7C5C198A86EC0036DC58 /* AppDelegate.swift */,
 				B0DB7C67198A86EC0036DC58 /* Images.xcassets */,
+				B03925F8199D409F00561E51 /* Sounds */,
+				B067D93F198AC3490009D2A5 /* Boards */,
 				B0DB7C5A198A86EC0036DC58 /* Supporting Files */,
 			);
 			path = RoboRace;
@@ -195,9 +253,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0DB7C68198A86EC0036DC58 /* Images.xcassets in Resources */,
-				B0DB7C5F198A86EC0036DC58 /* GameScene.sks in Resources */,
-				B0DB7C66198A86EC0036DC58 /* Main.storyboard in Resources */,
+				B0DF7A7319A4E96400200FB7 /* Main.storyboard in Resources */,
+				B02186DC19A27CE7000BC8B3 /* death.wav in Resources */,
+				B0FF387D198FF444003F48C1 /* ChopShop.json in Resources */,
+				B03925FA199D40B600561E51 /* laser.wav in Resources */,
+				B02186D419A2554B000BC8B3 /* Images.xcassets in Resources */,
+				B08CF080198BF1BB00A1B719 /* Rules.txt in Resources */,
+				B08CF076198B229800A1B719 /* Board_0.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,9 +277,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B067D938198ABF280009D2A5 /* Set.swift in Sources */,
+				B067D93A198ABF370009D2A5 /* Extensions.swift in Sources */,
 				B0DB7C61198A86EC0036DC58 /* GameScene.swift in Sources */,
+				B067D93E198AC02F0009D2A5 /* Tile.swift in Sources */,
+				B067D936198ABF210009D2A5 /* Array2D.swift in Sources */,
+				B067D93C198ABFFC0009D2A5 /* Board.swift in Sources */,
 				B0DB7C63198A86EC0036DC58 /* GameViewController.swift in Sources */,
+				B08CF07E198BEE0100A1B719 /* Queue.swift in Sources */,
+				B08CF07A198BE85000A1B719 /* Card.swift in Sources */,
+				B08CF078198BE79700A1B719 /* Robot.swift in Sources */,
+				B08CF07C198BED4800A1B719 /* Deck.swift in Sources */,
 				B0DB7C5D198A86EC0036DC58 /* AppDelegate.swift in Sources */,
+				B08CF082198C1E8300A1B719 /* Direction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,17 +310,6 @@
 			targetProxy = B0DB7C6E198A86ED0036DC58 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		B0DB7C64198A86EC0036DC58 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B0DB7C65198A86EC0036DC58 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		B0DB7C75198A86ED0036DC58 /* Debug */ = {
@@ -405,6 +466,7 @@
 				B0DB7C79198A86ED0036DC58 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B0DB7C7A198A86ED0036DC58 /* Build configuration list for PBXNativeTarget "RoboRaceTests" */ = {
 			isa = XCConfigurationList;
@@ -413,6 +475,7 @@
 				B0DB7C7C198A86ED0036DC58 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
