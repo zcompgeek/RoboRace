@@ -13,10 +13,10 @@ let NumRows = 12
 
 class Board {
     let tiles = Array2D<Tile>(columns: NumColumns, rows: NumRows)  // private
-    let title: String!
-    let difficulty: Int!
+    var title: String
+    var difficulty: Int
     let deck: Deck!
-    let robots = Set<Robot>()
+    var robots = Set<Robot>()
     var player: Robot!
     var startPoint : (column: Int, row: Int)!
     
@@ -48,7 +48,7 @@ class Board {
         for bot in robots {
             order.append(bot)
         }
-        order.sort {
+        order.sortInPlace {
             r1, r2 in r1.program[phaseNum]!.priority > r2.program[phaseNum]!.priority
         }
         
@@ -104,9 +104,9 @@ class Board {
     func newBotDirection(bot: Robot) {
         switch bot.rotateBy {
         case 90 :
-            if let newDir = Direction.fromRaw((bot.direction.toRaw() + 90) % 360) { bot.direction = newDir }
+            if let newDir = Direction(rawValue: (bot.direction.rawValue + 90) % 360) { bot.direction = newDir }
         case -90 :
-            if let newDir = Direction.fromRaw(bot.direction.toRaw() - 90) { bot.direction = newDir }
+            if let newDir = Direction(rawValue: bot.direction.rawValue - 90) { bot.direction = newDir }
             else { bot.direction = .Right }
         case 180, -180 :
             switch bot.direction {
@@ -122,7 +122,7 @@ class Board {
         case 0 :
             return
         default :
-            println("error in calculating new direction")
+            print("error in calculating new direction")
             return
         }
     }
@@ -181,8 +181,6 @@ class Board {
                             if let nextTile = tileAtColumn(tile.column + 1, row: tile.row) {
                                 boardRotation(bot, currTile: tile, nextTile: nextTile)
                             }
-                        default :
-                            break
                         }
                     default:
                         break
@@ -216,8 +214,6 @@ class Board {
                             if let nextTile = tileAtColumn(tile.column + 1, row: tile.row) {
                                 boardRotation(bot, currTile: tile, nextTile: nextTile)
                             }
-                        default :
-                            break
                         }
                     default:
                         break
@@ -252,7 +248,7 @@ class Board {
     }
     
     func moveBot(bot: Robot, command: Card) {
-        println(command.cardType)
+        print(command.cardType)
         switch command.cardType {
         case .Move1 :
             switch bot.direction {
@@ -305,7 +301,7 @@ class Board {
         case .UTurn :
             bot.rotateBy = 180.0
         default :
-                println("Tried to move with an option card")
+                print("Tried to move with an option card")
         }
         newBotDirection(bot)
     }
@@ -355,7 +351,7 @@ class Board {
             }
         }
         
-        for (index,tile) in enumerate(path) {
+        for (index,tile) in path.enumerate() {
             //If bot will fall into pit, kill it
             if tile.tileType == TileType.Pit {
                 bot.state = .PitDeath
@@ -429,20 +425,22 @@ class Board {
     
     
     init(filename: String) {
+        title = "Unknown"
+        difficulty = 0
         if let dictionary = Dictionary<String, AnyObject>.loadJSONFromBundle(filename) {
             if let tilesArray: AnyObject = dictionary["tiles"] {
-                for (row, rowArray) in enumerate(tilesArray as [[Int]]) {
+                for (row, rowArray) in (tilesArray as! [[Int]]).enumerate() {
                     let tileRow = NumRows - row - 1
-                    for (column, value) in enumerate(rowArray) {
-                        if let tileType = TileType.fromRaw(value) {
+                    for (column, value) in rowArray.enumerate() {
+                        if let tileType = TileType(rawValue: value) {
                             tiles[column, tileRow] = Tile(column: column, row:tileRow, tileType: tileType)
                         }
                     }
                 }
             if let tilesArray: AnyObject = dictionary["angles"] {
-                for (row, rowArray) in enumerate(tilesArray as [[CGFloat]]) {
+                for (row, rowArray) in (tilesArray as! [[CGFloat]]).enumerate() {
                     let angleRow = NumRows - row - 1
-                    for (column, angle) in enumerate(rowArray) {
+                    for (column, angle) in rowArray.enumerate() {
                         if let tile = tiles[column, angleRow] {
                             tile.angle = angle * pi / 180.0
                         }
@@ -450,11 +448,11 @@ class Board {
                 }
             }
                 if let tilesArray: AnyObject = dictionary["walls"] {
-                    for (row, rowArray) in enumerate(tilesArray as [[Int]]) {
+                    for (row, rowArray) in (tilesArray as! [[Int]]).enumerate() {
                         let wallRow = NumRows - row - 1
-                        for (column, value) in enumerate(rowArray) {
+                        for (column, value) in rowArray.enumerate() {
                             if let tile = tiles[column, wallRow] {
-                                if let wall = wallSide.fromRaw(value) {
+                                if let wall = wallSide(rawValue: value) {
                                     tile.wall = wall
                                 }
                             }
@@ -462,11 +460,11 @@ class Board {
                     }
                 }
                 if let tilesArray: AnyObject = dictionary["lasers"] {
-                    for (row, rowArray) in enumerate(tilesArray as [[Int]]) {
+                    for (row, rowArray) in (tilesArray as! [[Int]]).enumerate() {
                         let laserRow = NumRows - row - 1
-                        for (column, value) in enumerate(rowArray) {
+                        for (column, value) in rowArray.enumerate() {
                             if let tile = tiles[column, laserRow] {
-                                if let laser = LaserType.fromRaw(value) {
+                                if let laser = LaserType(rawValue: value) {
                                     tile.laser = laser
                                 }
                             }
@@ -474,8 +472,8 @@ class Board {
                     }
                 }
                 
-                title = (dictionary["boardTitle"] as NSString)
-                difficulty = (dictionary["difficulty"] as NSNumber)
+                title = (dictionary["boardTitle"] as? NSString) as? String ?? "unknown"
+                difficulty = (dictionary["difficulty"] as! Int)
             }
         }
         deck = Deck(isOptionsDeck: false)

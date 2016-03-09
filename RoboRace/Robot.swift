@@ -8,13 +8,13 @@
 import Foundation
 import SpriteKit
 
-enum RobotName: Int, Printable {
+enum RobotName: Int, CustomStringConvertible {
     case Unknown = 0, BallBot
     var spriteName: String {
     let spriteNames = [
         "Robot1"]
         
-        return spriteNames[toRaw() - 1]
+        return spriteNames[rawValue - 1]
     }
     
     var description: String {
@@ -61,7 +61,7 @@ class Robot: Hashable {
     }
     
     var hashValue: Int {
-        if let hash = name.toInt() {return hash}
+        if let hash = Int(name) {return hash}
         return 0
     }
 }

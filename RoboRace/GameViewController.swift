@@ -28,15 +28,15 @@ class GameViewController: UIViewController {
         return true
     }
     
-    override func supportedInterfaceOrientations() -> Int {
-        return Int(UIInterfaceOrientationMask.AllButUpsideDown.toRaw())
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .AllButUpsideDown
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Configure the view.
-        let skView = view as SKView
+        let skView = view as! SKView
         skView.multipleTouchEnabled = false
         
         // Create and configure the scene.
@@ -66,14 +66,14 @@ class GameViewController: UIViewController {
         beginGame()
     }
     
-    @IBAction func dealButtonPressed(AnyObject) {
+    @IBAction func dealButtonPressed(_: AnyObject) {
         dealCards()
     }
     
-    @IBAction func beginButtonPressed(AnyObject) {
+    @IBAction func beginButtonPressed(_: AnyObject) {
         var isFull = true
         for card in board.player.program {
-            isFull = isFull && card
+            (isFull = isFull && card != nil)
         }
         if isFull {
             executeTurn(0)
@@ -94,10 +94,8 @@ class GameViewController: UIViewController {
         board.player = Robot(name: "Ball Bot", bot: .BallBot)
             
             
-        board.robots.addElement(board.player)
-        
-        
-        
+        board.robots.insert(board.player)
+
         scene.addBots()
     }
     
@@ -116,10 +114,10 @@ class GameViewController: UIViewController {
         dealButton.hidden = true
         for bot in board.robots {
             var hand = [Card]()
-            for i in 0..<9 {
+            for _ in 0..<9 {
                 hand.append(board.deck.draw()!)
             }
-            hand.sort() {
+            hand.sortInPlace() {
                 c1, c2 in c1.priority < c2.priority
             }
             bot.hand = hand
@@ -132,7 +130,7 @@ class GameViewController: UIViewController {
         
         board.boardElements(part)
         scene.animateBotMoves() {
-            self.boardElements(part + 1, completion)
+            self.boardElements(part + 1, completion: completion)
         }
     }
     
@@ -148,7 +146,7 @@ class GameViewController: UIViewController {
                 self.updateDamageDisplay(self.board.player.damage)
                 for bot in self.board.robots {
                     if (bot.state == RobotState.PitDeath || bot.state == RobotState.Destroyed) && bot.lives == 0 {
-                        self.board.robots.removeElement(bot)
+                        self.board.robots.remove(bot)
                     }
                 }
                 self.executeTurn(phase + 1)

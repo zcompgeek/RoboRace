@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-enum CardType: Int, Printable {
+enum CardType: Int, CustomStringConvertible {
     case Option = 1, Move1, Move2, Move3, BackUp, TurnLeft, TurnRight, UTurn
     
     var CardNames: String {
@@ -22,7 +22,7 @@ enum CardType: Int, Printable {
         "Turn Right",
         "U Turn" ]
         
-        return cardNames[toRaw() - 1]
+        return cardNames[rawValue - 1]
         
     }
     
@@ -37,7 +37,7 @@ enum CardType: Int, Printable {
         "TurnRight",
         "UTurn" ]
         
-        return spriteNames[toRaw() - 1]
+        return spriteNames[rawValue - 1]
         
     }
     var description: String {
@@ -75,7 +75,7 @@ class Card: Hashable {
     }
     
     var hashValue: Int {
-        return priority * cardType.toRaw()
+        return priority * cardType.rawValue
     }
     
     //var description: String {

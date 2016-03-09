@@ -16,8 +16,8 @@ class GameScene: SKScene {
     let TileWidth: CGFloat = 64.0
     let TileHeight: CGFloat = 64.0
     
-    let cardWidth: Int = 85.0
-    let cardHeight: Int = 140.0
+    let cardWidth: Int = 85
+    let cardHeight: Int = 140
     
     let gameLayer = SKNode()
     let tilesLayer = SKNode()
@@ -27,14 +27,19 @@ class GameScene: SKScene {
     let deathSound = SKAction.playSoundFileNamed("death.wav", waitForCompletion: false)
     
     var selectedCard: SKSpriteNode!
-    
-    
-    override func touchesBegan(touches: NSSet!, withEvent event: UIEvent!) {
-        var touch : UITouch = touches.anyObject() as UITouch
-        var positionInScene : CGPoint = touch.locationInNode(self)
+
+     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch: UITouch = touches.first!
+        let positionInScene : CGPoint = touch.locationInNode(self)
         selectNodeForTouch(positionInScene)
     }
-    
+
+//    override func touchesBegan(touches: NSSet!, withEvent event: UIEvent!) {
+//        let touch : UITouch = touches.anyObject() as! UITouch
+//        let positionInScene : CGPoint = touch.locationInNode(self)
+//        selectNodeForTouch(positionInScene)
+//    }
+
     func selectNodeForTouch(touchLocation: CGPoint) {
         
         if let touchedNode  = nodeAtPoint(touchLocation) as? SKSpriteNode {
@@ -43,24 +48,23 @@ class GameScene: SKScene {
             selectedCard = SKSpriteNode()
         }
     }
-    
-    override func touchesMoved(touches: NSSet!, withEvent event: UIEvent!) {
-        var touch: UITouch = touches.anyObject() as UITouch
-        var positionInScene = touch.locationInNode(self)
-        var previousPosition = touch.previousLocationInNode(self)
-        var translation = CGPointMake(positionInScene.x - previousPosition.x, positionInScene.y - previousPosition.y)
+
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch: UITouch = touches.first!
+        let positionInScene = touch.locationInNode(self)
+        let previousPosition = touch.previousLocationInNode(self)
+        let translation = CGPointMake(positionInScene.x - previousPosition.x, positionInScene.y - previousPosition.y)
         if let name = selectedCard.name {
             let position = selectedCard.position
             if name.isEqual("Card") {
                 selectedCard.position = CGPointMake(position.x + translation.x, position.y + translation.y)
             }
         }
-        
     }
-    
-    override func touchesEnded(touches: NSSet!, withEvent event: UIEvent!) {
-        var touch: UITouch = touches.anyObject() as UITouch
-        var positionInScene = touch.locationInNode(displayLayer)
+
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch: UITouch = touches.first!
+        let positionInScene = touch.locationInNode(displayLayer)
         for i in 1..<6 {
             if let slot = displayLayer.childNodeWithName("Slot\(i)") {
                 if slot.containsPoint(positionInScene) {
@@ -75,11 +79,11 @@ class GameScene: SKScene {
                                 }
                             }
                         }
-                        
+
                     }
                 }
             }
-            
+
         }
         selectedCard = SKSpriteNode()
     }
@@ -136,7 +140,7 @@ class GameScene: SKScene {
     
     func displayHand() {
         var sprites = [SKSpriteNode]()
-        for (index, card) in enumerate(board.player.hand) {
+        for card in board.player.hand {
             let cardSprite = SKSpriteNode(imageNamed: card.cardType.spriteName)
             cardSprite.position = CGPoint(x: Int(TileWidth) * 3, y: -cardHeight)
             cardSprite.name = "Card"
@@ -151,12 +155,13 @@ class GameScene: SKScene {
             sprites.append(cardSprite)
         }
         
-        for (index, sprite) in enumerate(sprites) {
+        for (index, sprite) in sprites.enumerate() {
             var moveTo = CGPoint()
             if index == 0 {
                 moveTo = CGPoint(x: Int(TileWidth) * 3 + cardWidth * index, y: -cardHeight/2)
             } else {
-                moveTo = CGPoint(x: Int(TileWidth) * 3 + (cardWidth + 5) * index - (cardWidth / 3) * index , y: -cardHeight/2)
+                let x = Int(TileWidth) * 3 + (cardWidth + 5) * index - (cardWidth / 3) * index
+                moveTo = CGPoint(x: x, y: -cardHeight/2)
             }
             let delay = 0.5 + NSTimeInterval(index) * 0.1
             let move = SKAction.moveTo(moveTo, duration: delay)
@@ -172,10 +177,10 @@ class GameScene: SKScene {
         for row in 0..<NumRows {
             for column in 0..<NumColumns {
                 if let tile = board.tileAtColumn(column, row: row) {
-                    var tileNode =  SKSpriteNode()
+                    let tileNode =  SKSpriteNode()
                     var tileSkin: SKSpriteNode!
                     if tile.tileType ==  TileType.Normal {
-                        var i = Int(arc4random_uniform(3)) + 1
+                        let i = Int(arc4random_uniform(3)) + 1
                         tileSkin = SKSpriteNode(imageNamed: "Normal\(i)")
                     } else {
                         tileSkin = SKSpriteNode(imageNamed: tile.tileType.spriteName)
@@ -197,13 +202,13 @@ class GameScene: SKScene {
                             laser = SKSpriteNode(imageNamed: "Single")
                         case .DoubleVert :
                             laser = SKSpriteNode(imageNamed: "Single")
-                            var laser2 = SKSpriteNode(imageNamed: "Single")
+                            let laser2 = SKSpriteNode(imageNamed: "Single")
                             laser.position = CGPoint(x: -15, y: 0)
                             laser2.position = CGPoint(x: 15, y: 0)
                             tileNode.addChild(laser2)
                         case .DoubleHorz :
                             laser = SKSpriteNode(imageNamed: "Single")
-                            var laser2 = SKSpriteNode(imageNamed: "Single")
+                            let laser2 = SKSpriteNode(imageNamed: "Single")
                             laser.zRotation = 90 * pi / 180
                             laser2.zRotation = 90 * pi / 180
                             laser.position = CGPoint(x: 0, y: 15)
@@ -211,8 +216,8 @@ class GameScene: SKScene {
                             tileNode.addChild(laser2)
                         case .TripleHorz :
                             laser = SKSpriteNode(imageNamed: "Single")
-                            var laser2 = SKSpriteNode(imageNamed: "Single")
-                            var laser3 = SKSpriteNode(imageNamed: "Single")
+                            let laser2 = SKSpriteNode(imageNamed: "Single")
+                            let laser3 = SKSpriteNode(imageNamed: "Single")
                             laser.zRotation = 90 * pi / 180
                             laser2.zRotation = 90 * pi / 180
                             laser3.zRotation = 90 * pi / 180
@@ -222,27 +227,27 @@ class GameScene: SKScene {
                             tileNode.addChild(laser3)
                         case .TripleVert :
                             laser = SKSpriteNode(imageNamed: "Single")
-                            var laser2 = SKSpriteNode(imageNamed: "Single")
-                            var laser3 = SKSpriteNode(imageNamed: "Single")
+                            let laser2 = SKSpriteNode(imageNamed: "Single")
+                            let laser3 = SKSpriteNode(imageNamed: "Single")
                             laser2.position = CGPoint(x: -20, y: 0)
                             laser3.position = CGPoint(x: 20, y: 0)
                             tileNode.addChild(laser2)
                             tileNode.addChild(laser3)
                         case .OriginHorz2 :
-                            var laser2 = SKSpriteNode(imageNamed: "Laser")
+                            let laser2 = SKSpriteNode(imageNamed: "Laser")
                             laser.zRotation = 270 * pi / 180
                             laser2.zRotation = 270 * pi / 180
                             laser.position = CGPoint(x: 0, y: 15)
                             laser2.position = CGPoint(x: 0, y: -15)
                             tileNode.addChild(laser2)
                         case .OriginVert2 :
-                            var laser2 = SKSpriteNode(imageNamed: "Laser")
+                            let laser2 = SKSpriteNode(imageNamed: "Laser")
                             laser.position = CGPoint(x: 5, y: 0)
                             laser2.position = CGPoint(x: -5, y: 0)
                             tileNode.addChild(laser2)
                         case .OriginHorz3 :
-                            var laser2 = SKSpriteNode(imageNamed: "Laser")
-                            var laser3 = SKSpriteNode(imageNamed: "Laser")
+                            let laser2 = SKSpriteNode(imageNamed: "Laser")
+                            let laser3 = SKSpriteNode(imageNamed: "Laser")
                             laser.zRotation = 270 * pi / 180
                             laser2.zRotation = 270 * pi / 180
                             laser3.zRotation = 270 * pi / 180
@@ -252,8 +257,8 @@ class GameScene: SKScene {
                             tileNode.addChild(laser2)
                             tileNode.addChild(laser3)
                         case .OriginVert3 :
-                            var laser2 = SKSpriteNode(imageNamed: "Laser")
-                            var laser3 = SKSpriteNode(imageNamed: "Laser")
+                            let laser2 = SKSpriteNode(imageNamed: "Laser")
+                            let laser3 = SKSpriteNode(imageNamed: "Laser")
                             laser.position = CGPoint(x: 20, y: 0)
                             laser2.position = CGPoint(x: 0, y: 0)
                             laser3.position = CGPoint(x: -20, y: 0)
@@ -289,14 +294,14 @@ class GameScene: SKScene {
                             wall = SKSpriteNode(imageNamed: "LWall")
                             wall.zRotation = 270 * pi / 180
                         case .LeftRight :
-                            var wall2 = SKSpriteNode(imageNamed: "Wall")
+                            let wall2 = SKSpriteNode(imageNamed: "Wall")
                             wall.position = CGPoint (x: -27, y:0)
                             wall.zRotation = 90 * pi / 180
                             wall2.position = CGPoint (x: 28, y: 0)
                             wall2.zRotation = 90 * pi / 180
                             tileNode.addChild(wall2)
                         case .BottomTop :
-                            var wall2 = SKSpriteNode(imageNamed: "Wall")
+                            let wall2 = SKSpriteNode(imageNamed: "Wall")
                             wall.position = CGPoint (x: 0, y: -27)
                             wall2.position = CGPoint (x: 0, y: 27)
                             tileNode.addChild(wall2)
@@ -333,13 +338,13 @@ class GameScene: SKScene {
             bot.row = board.startPoint.row
             bot.spawnPoint = board.startPoint
             botNode.position = pointForColumn(bot.column, row: bot.row)
-            botNode.zRotation = bot.direction.toRaw() * pi / 180.0
+            botNode.zRotation = bot.direction.rawValue * pi / 180.0
             bot.sprite = botNode
             botLayer.addChild(botNode)
         }
     }
     
-    init(size: CGSize) {
+    override init(size: CGSize) {
         super.init(size: size)
         
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -357,8 +362,8 @@ class GameScene: SKScene {
         
         let displayLayerPosition =
         CGPoint(
-            x: -CGFloat(6)*TileWidth + cardWidth/2,
-            y: -CGFloat(6)*TileHeight - cardHeight/2)
+            x: -CGFloat(6)*TileWidth + CGFloat(cardWidth)/2,
+            y: -CGFloat(6)*TileHeight - CGFloat(cardHeight)/2)
         
         tilesLayer.position = layerPosition
         gameLayer.addChild(tilesLayer)
@@ -370,5 +375,9 @@ class GameScene: SKScene {
         gameLayer.addChild(displayLayer)
         
         selectedCard = SKSpriteNode()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

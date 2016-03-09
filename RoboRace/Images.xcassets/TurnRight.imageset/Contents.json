@@ -9,8 +9,12 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "TurnRight.png"
+      "filename" : "TurnRight.png",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {

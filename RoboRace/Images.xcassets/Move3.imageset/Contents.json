@@ -9,8 +9,12 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "Move3.png"
+      "filename" : "Move3.png",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {

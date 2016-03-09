@@ -9,8 +9,12 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "Pit.png"
+      "filename" : "Pit.png",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {

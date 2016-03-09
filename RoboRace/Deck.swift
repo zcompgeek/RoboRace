@@ -10,13 +10,13 @@ import Foundation
 let options = [ Card("title here", "description here"),Card("title here", "description here"),Card("title here", "description here"),Card("title here", "description here"),Card("title here", "description here"),Card("title here", "description here"),Card("title here", "description here"),Card("title here", "description here"),Card("title here", "description here"),Card("title here", "description here"),Card("title here", "description here"),Card("title here", "description here"),Card("title here", "description here"),Card("title here", "description here"),Card("title here", "description here"),Card("title here", "description here"),Card("title here", "description here"),Card("title here", "description here"),Card("title here", "description here"),Card("title here", "description here"),Card("title here", "description here"),Card("title here", "description here"),Card("title here", "description here"),Card("title here", "description here"),Card("title here", "description here"),Card("title here", "description here") ]
 
 
-class Deck: Printable {
+class Deck: CustomStringConvertible {
     let isOptionsDeck: Bool
     let cards: Queue<Card>
     
     var description: String {
         var toReturn = ""
-        var temp = Queue<Card>()
+        let temp = Queue<Card>()
         while !cards.isEmpty() {
             if let card = cards.dequeue() {
                 if isOptionsDeck {
@@ -38,12 +38,12 @@ class Deck: Printable {
         while !cards.isEmpty() {
             tempDeck.append(cards.dequeue()!)
         }
-        for (var i = tempDeck.count-1; i > 0; i--) {
+        for (var i: Int = tempDeck.count - 1; i > 0; i--) {
             // Pick a random index from 0 to i
-            var j = Int(arc4random_uniform(84) % (i+1))
+            let j = Int(arc4random_uniform(84)) % (i + 1)
             
             // Swap arr[i] with the element at random index
-            var temp = tempDeck[i]
+            let temp = tempDeck[i]
             tempDeck[i] = tempDeck[j]
             tempDeck[j] = temp
         }

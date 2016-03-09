@@ -7,7 +7,7 @@
 //
 import SpriteKit
 
-enum TileType: Int, Printable {
+enum TileType: Int, CustomStringConvertible {
     case Unknown = 0,  Normal, //1
                      SlowBelt, //2
                  SlowBeltLeft, //3
@@ -41,7 +41,7 @@ enum TileType: Int, Printable {
         "RotateCW",
         "RotateCCW"]
         
-        return spriteNames[toRaw() - 1]
+        return spriteNames[rawValue - 1]
     }
     
     var description: String {
@@ -82,7 +82,7 @@ enum LaserType: Int {
 }
 
 
-class Tile: Printable, Hashable {
+class Tile: CustomStringConvertible, Hashable {
     var column: Int
     var row: Int
     let tileType: TileType
